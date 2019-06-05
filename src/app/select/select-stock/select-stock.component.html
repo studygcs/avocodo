@@ -1,0 +1,32 @@
+<form>
+	<div class="container">
+		<div id="st-box">
+			<mat-form-field>
+				<mat-label>Daily</mat-label>
+				<mat-select [(ngModel)]="selectedValue" name="food" (selectionChange)=selChange($event)>
+					<mat-option *ngFor="let food of foods" [value]="food">
+						{{food.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+		</div>
+
+<div id="nd-box">
+			<mat-form-field>
+				<mat-label>Weekly</mat-label>
+				<mat-select [(ngModel)]="weeklySelSybol" name="food" (selectionChange)=selWeeklyChange($event)>
+					<mat-option *ngFor="let food of foods" [value]="food">
+						{{food.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+		</div>
+
+	</div>
+
+</form>
+
+
+<app-beta-cal-grid> </app-beta-cal-grid>

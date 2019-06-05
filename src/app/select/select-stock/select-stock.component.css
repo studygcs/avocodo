@@ -1,0 +1,30 @@
+ .container { 
+            width:600px; 
+            height:190px; 
+            background-color:green; 
+            padding-top:20px; 
+            padding-left:15px; 
+            padding-right:15px; 
+        } 
+        #st-box { 
+            float:left; 
+            width:200px; 
+            height:160px; 
+            background-color:white; 
+            border:solid black; 
+        } 
+        #nd-box { 
+            float:left; 
+            width:200px; 
+            height:160px; 
+            background-color:white;  
+            border:solid black; 
+            margin-left:20px; 
+        } 
+        #rd-box { 
+            float:right; 
+            width:180px; 
+            height:160px; 
+            background-color:white; 
+            border:solid black; 
+        } 
