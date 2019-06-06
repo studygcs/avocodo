@@ -21,6 +21,14 @@ import { NseService } from './services/nse.service';
 
 import {JsonpModule, Jsonp, Response} from '@angular/http';
 
+import { RestangularModule } from 'ngx-restangular';
+
+// Function for setting the default restangular configuration
+export function RestangularConfigFactory (RestangularProvider) {
+  RestangularProvider.setBaseUrl('http://api.restngx.local/v1');
+  //RestangularProvider.setDefaultHeaders({'Authorization': 'Bearer UDXPx-Xko0w4BRKajozCVy20X11MRZs1'});
+}
+
 
 @NgModule({
   imports: [
@@ -35,7 +43,8 @@ import {JsonpModule, Jsonp, Response} from '@angular/http';
     NgMaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    JsonpModule
+    JsonpModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
     
   ],
   declarations: [AppComponent, HelloComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],
