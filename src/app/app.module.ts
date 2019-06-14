@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
 import { BetaCalGridComponent } from './beta-cal-grid/beta-cal-grid.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -48,7 +47,7 @@ export function RestangularConfigFactory (RestangularProvider) {
     RestangularModule.forRoot(RestangularConfigFactory)
     
   ],
-  declarations: [AppComponent, HelloComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],
+  declarations: [AppComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],
   bootstrap: [AppComponent],
   providers: [StockObserverService, NseService, NseDataService]
 })
