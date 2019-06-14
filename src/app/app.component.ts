@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import * as API from 'indian-stock-exchange';
+import { NseDataService } from './lib/service';
 
-import * as C from 'cheerio';
-
-import * as CTP from 'cheerio-tableparser';
 
 @Component({
   selector: 'my-app',
@@ -13,24 +10,18 @@ import * as CTP from 'cheerio-tableparser';
 export class AppComponent {
   title = 'Welcome to My World';
 
-  getData() : void {
-    var NSEAPI = API.NSE;
-var BSEAPI = API.BSE;
- 
- 
-// Examples
- 
-// NSEAPI.getIndices()
-// .then(function (response) { 
-//   console.log(response.data); //return the api data
-// });
+  constructor(private nseSer : NseDataService) {}
 
- 
-NSEAPI.getCandleStickData('RELIANCE', 1, false)
-.then(function (response) { 
-  console.log(response.data); //return the api data
-});
+  getData() : void {
+
+    this.nseSer.getTickHistory().then(data => {
+     console.log(data);
+   }).catch(error => {
+     console.log(error);
+   });
 
     alert('hi');
   }
+
 }
+

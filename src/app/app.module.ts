@@ -22,6 +22,7 @@ import { NseService } from './services/nse.service';
 import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 import { RestangularModule } from 'ngx-restangular';
+import { NseDataService } from './lib/service';
 
 // Function for setting the default restangular configuration
 export function RestangularConfigFactory (RestangularProvider) {
@@ -49,6 +50,6 @@ export function RestangularConfigFactory (RestangularProvider) {
   ],
   declarations: [AppComponent, HelloComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],
   bootstrap: [AppComponent],
-  providers: [StockObserverService, NseService]
+  providers: [StockObserverService, NseService, NseDataService]
 })
 export class AppModule { }
