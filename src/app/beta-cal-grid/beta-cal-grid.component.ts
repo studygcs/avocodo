@@ -6,7 +6,7 @@ import { StockHistory } from './../data/stock-history';
 import { Candle } from './../data/candle';
 import { StockObserverService } from './../services/stock-observer.service';
 import { StockSymbol } from './../data/stock-symbol';
-import { NseDataService } from 'app/lib/service';
+import { NseDataService } from './../lib/service';
 
 @Component({
   selector: 'app-beta-cal-grid',
