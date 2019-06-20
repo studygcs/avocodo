@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { merge, Observable, of as observableOf } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
 import { StockHistory } from './../data/stock-history';
-import { CandleImpl } from './../data/candle-impl';
 import { Candle } from './../data/candle';
 import { StockObserverService } from './../services/stock-observer.service';
 import { StockSymbol } from './../data/stock-symbol';
+import { NseDataService } from 'app/lib/service';
 
 @Component({
   selector: 'app-beta-cal-grid',
@@ -31,7 +30,9 @@ export class BetaCalGridComponent implements AfterViewInit {
 
   marketDataService: MarketDataService;
 
-  constructor(private http: HttpClient, private readonly stockObserver: StockObserverService) {
+  constructor(private http: HttpClient,
+     private readonly stockObserver: StockObserverService,
+     private readonly nseService: NseDataService) {
     this.marketDataService = new MarketDataService(http);
     // this.stockObserver.subscribeStockChanges(this.stockChange);
     this.stockObserver.stockChange.subscribe(stock => {
@@ -56,59 +57,12 @@ export class BetaCalGridComponent implements AfterViewInit {
 
   getHistory(stock?: string, series?: string) {
     console.log(stock);
-    this.marketDataService.getCandles(stock, series).subscribe(marketData => {
+    this.nseService.getTickHistory().then( marketData => {
       console.log(marketData);
-
-      this.stockHistory.candles = [];
-
-      for (let prop in marketData) {
-        console.log(prop);
-        console.log(marketData[prop]);
-        if (prop.includes('Meta Data')) {
-          this.stockHistory.name = marketData[prop]['2. Symbol'];
-          console.log(this.stockHistory.name);
-        }
-        console.log('ticks xx');
-        console.log(prop.includes('Time Series'));
-
-        if (prop.includes('Time Series')) {
-
-          let ticks = marketData[prop];
-          console.log('ticks');
-
-          console.log(ticks);
-
-          for (let date in ticks) {
-            try {
-
-
-
-              let candle = new CandleImpl();
-              candle.date = new Date(date);
-
-              candle.open = ticks[date]['1. open'];
-              candle.high = ticks[date]['2. high'];
-              candle.low = ticks[date]['3. low'];
-              candle.close = ticks[date]['4. close'];
-              candle.volume = ticks[date]['5. volume'];
-
-              this.stockHistory.candles.push(candle);
-            }
-            catch (error) {
-              console.log(error);
-
-            }
-          }
-        }
-      }
-
-      console.log('sss');
-      console.log(this.stockHistory);
-      this.data = this.stockHistory.candles;
-    }, error => {
-      console.log(error);
+    }).catch(reason => {
+      console.log(reason);
     });
-  }
+    }
 
   getHighLowAverage(): number {
     return CandleBL.getHighLowAverage(this.data);
