@@ -22,6 +22,7 @@ import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 import { RestangularModule } from 'ngx-restangular';
 import { NseDataService } from './lib/service';
+import { DateFnsModule } from 'ngx-date-fns';
 
 // Function for setting the default restangular configuration
 export function RestangularConfigFactory (RestangularProvider) {
@@ -44,7 +45,8 @@ export function RestangularConfigFactory (RestangularProvider) {
     MatNativeDateModule,
     ReactiveFormsModule,
     JsonpModule,
-    RestangularModule.forRoot(RestangularConfigFactory)
+    RestangularModule.forRoot(RestangularConfigFactory),
+    DateFnsModule.forRoot()
     
   ],
   declarations: [AppComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],

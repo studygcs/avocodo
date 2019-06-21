@@ -18,8 +18,9 @@ export class SelectStockComponent {
   weeklySelSybol: StockSymbol;
 
   foods: StockSymbol[] = [
-    { symbol: 'JSWSTEEL.NS', name: 'JSWSTEEL' },
-    { symbol: 'RELIANCE.NS', name: 'Reliance' },
+    { symbol: 'jswsteel', name: 'JSWSTEEL' },
+    { symbol: 'reliance', name: 'Reliance' },
+    { symbol: 'yesbank', name: 'yesbank' },
 
     { symbol: '^NSEI', name: 'Nifty 50' },
     { symbol: '^NSEBANK', name: 'BANK NIFTY' }

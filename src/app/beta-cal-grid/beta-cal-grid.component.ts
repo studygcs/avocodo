@@ -7,6 +7,7 @@ import { Candle } from './../data/candle';
 import { StockObserverService } from './../services/stock-observer.service';
 import { StockSymbol } from './../data/stock-symbol';
 import { NseDataService } from './../lib/service';
+import { HistoryTick } from 'app/lib/common-types';
 
 @Component({
   selector: 'app-beta-cal-grid',
@@ -15,9 +16,9 @@ import { NseDataService } from './../lib/service';
 })
 export class BetaCalGridComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['date', 'open', 'high', 'low', 'close', 'high_low', 'open_close'];
+  displayedColumns: string[] = ['date', 'open', 'high', 'low', 'close'];
   exampleDatabase: ExampleHttpDatabase | null;
-  data: Candle[] = [];
+  data: HistoryTick[] = [];
 
   stockHistory: StockHistory = new StockHistory();
 
@@ -57,7 +58,8 @@ export class BetaCalGridComponent implements AfterViewInit {
 
   getHistory(stock?: string, series?: string) {
     console.log(stock);
-    this.nseService.getTickHistory().then( marketData => {
+    this.nseService.getTickHistory(stock).then( marketData => {
+      this.data = marketData;
       console.log(marketData);
     }).catch(reason => {
       console.log(reason);
@@ -65,11 +67,13 @@ export class BetaCalGridComponent implements AfterViewInit {
     }
 
   getHighLowAverage(): number {
-    return CandleBL.getHighLowAverage(this.data);
+    //return CandleBL.getHighLowAverage(this.data);
+    return 0;
   }
 
   getOpenCloseAverage(): number {
-    return CandleBL.getOpenCloseAverage(this.data);
+   // return CandleBL.getOpenCloseAverage(this.data);
+   return 0;
   }
 
 }

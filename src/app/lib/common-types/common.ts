@@ -30,18 +30,18 @@ export function getPlural(str: any): string {
           historyTick.symbol = tick['Symbol'];
          // historyTick. = tick['Series'];
           historyTick.date = tick['Date'];
-          historyTick.prevClose = tick['Prev Close'];
-          historyTick.open = tick['Open Price'];
-          historyTick.high = tick['High Price'];
-          historyTick.low = tick['Low Price'];
-          historyTick.last = tick['Last Price'];
-          historyTick.close = tick['Close Price'];
-          historyTick.averagePrice = tick['Average Price'];
-          historyTick.totalTradedQuantity = tick['Total Traded Quantity'];
-          historyTick.Turnover = tick['Turnover'];
-          historyTick.NoOfTrades = tick['No. of Trades'];
-          historyTick.deliverableQty = tick['Deliverable Qty'];
-          historyTick.percentageDlyQtytoTradedQty = tick['% Dly Qt to Traded Qty'];
+          historyTick.prevClose =  parseInt(tick['Prev Close']);
+          historyTick.open = parseInt(tick['Open Price']);
+          historyTick.high = parseInt(tick['High Price']);
+          historyTick.low = parseInt(tick['Low Price']);
+          historyTick.last = parseInt(tick['Last Price']);
+          historyTick.close = parseInt(tick['Close Price']);
+          historyTick.averagePrice = parseInt(tick['Average Price']);
+          historyTick.totalTradedQuantity = parseInt(tick['Total Traded Quantity']);
+          historyTick.Turnover =parseInt( tick['Turnover']);
+          historyTick.NoOfTrades = parseInt(tick['No. of Trades']);
+          historyTick.deliverableQty = parseInt(tick['Deliverable Qty']);
+          historyTick.percentageDlyQtytoTradedQty = parseInt(tick['% Dly Qt to Traded Qty']);
 
           return historyTick;
       }

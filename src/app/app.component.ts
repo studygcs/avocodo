@@ -14,14 +14,6 @@ export class AppComponent {
 
   getData() : void {
 
-    this.nseSer.getTickHistory().then(data => {
-     console.log(data);
-   }).catch(error => {
-     console.log(error);
-   });
-
-    alert('hi');
-  }
 
 }
 
