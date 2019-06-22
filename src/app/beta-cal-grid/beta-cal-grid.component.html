@@ -42,14 +42,14 @@
   <ng-container matColumnDef="high_low">
     <th mat-header-cell *matHeaderCellDef> High - Low </th>
     <td mat-cell *matCellDef="let candle"> {{candle.high_low}} </td>
-    <td mat-footer-cell *matFooterCellDef> {{getHighLowAverage()}} </td>
+    <td mat-footer-cell *matFooterCellDef> Average: {{getHighLowAverage()}} </td>
   </ng-container>
 
       <!-- open Column -->
   <ng-container matColumnDef="open_close">
     <th mat-header-cell *matHeaderCellDef> Open - Close </th>
     <td mat-cell *matCellDef="let candle"> {{candle.open_close}} </td>
-    <td mat-footer-cell *matFooterCellDef> {{getOpenCloseAverage()}} </td>
+    <td mat-footer-cell *matFooterCellDef> Average: {{getOpenCloseAverage()}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

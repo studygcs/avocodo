@@ -19,8 +19,25 @@ export class DashboardComponent implements OnInit {
   myBlogPosting(): void {
     this.openWindow("https://www.blogger.com/blogger.g?blogID=3974969294568783948#allposts");
   }
-  myBlog(): void {
+  public myBlog(): void {
     this.openWindow("https://worldgcs.blogspot.com/");
+  }
+
+  public nseTopGainLose(): void {
+    this.openWindow('https://www.nseindia.com/live_market/dynaContent/live_analysis/top_gainers_losers.htm');
+  }
+
+  public sample(): void {
+    this.openWindow('');
+  }
+
+  public nseHistoryPrices(): void {
+    this.openWindow('https://www.nseindia.com/products/content/equities/equities/eq_security.htm');
+  }
+
+  
+  public nseEquities(): void {
+    this.openWindow('https://www.nseindia.com/products/content/equities/equities/equities.htm');
   }
 
   openWindow(url: string): void {

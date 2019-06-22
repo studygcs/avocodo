@@ -40,7 +40,7 @@ export class NseDataService implements IMarketData {
         const now = moment();
         const today = now.format('DD-MM-YYYY');
         const lastYear = now.subtract(10, 'days').format('DD-MM-YYYY');
-        const url = `https://www.nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp?symbol=${symbol}&segmentLink=3&symbolCount=1&series=ALL&dateRange=+&fromDate=${lastYear}&toDate=${today}&dataType=PRICEVOLUMEDELIVERABLE`;
+        const url = `https://www.nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp?symbol=${symbol}&segmentLink=3&symbolCount=1&series=EQ&dateRange=12month&fromDate=&toDate=&dataType=PRICEVOLUMEDELIVERABLE`;
         return url;
     }
 
