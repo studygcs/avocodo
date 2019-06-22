@@ -10,10 +10,10 @@ import { NseDataService } from './lib/service';
 export class AppComponent {
   title = 'Welcome to My World';
 
-  constructor(private nseSer : NseDataService) {}
+  constructor(private nseSer: NseDataService) { }
 
-  getData() : void {
+  getData(): void {
 
-
+  }
 }
 
