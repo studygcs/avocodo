@@ -18,14 +18,15 @@ import { DashboardComponent } from './lib/gen/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { NseService } from './services/nse.service';
 
-import {JsonpModule, Jsonp, Response} from '@angular/http';
+import { JsonpModule, Jsonp, Response } from '@angular/http';
 
 import { RestangularModule } from 'ngx-restangular';
 import { NseDataService } from './lib/service';
 import { DateFnsModule } from 'ngx-date-fns';
+import { NeDBService } from './db/nedb.service';
 
 // Function for setting the default restangular configuration
-export function RestangularConfigFactory (RestangularProvider) {
+export function RestangularConfigFactory(RestangularProvider) {
   RestangularProvider.setBaseUrl('http://api.restngx.local/v1');
   //RestangularProvider.setDefaultHeaders({'Authorization': 'Bearer UDXPx-Xko0w4BRKajozCVy20X11MRZs1'});
 }
@@ -47,10 +48,15 @@ export function RestangularConfigFactory (RestangularProvider) {
     JsonpModule,
     RestangularModule.forRoot(RestangularConfigFactory),
     DateFnsModule.forRoot()
-    
+
   ],
   declarations: [AppComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],
   bootstrap: [AppComponent],
-  providers: [StockObserverService, NseService, NseDataService]
+  providers: [
+    StockObserverService,
+    NseService,
+    NseDataService,
+    NeDBService
+  ]
 })
 export class AppModule { }
