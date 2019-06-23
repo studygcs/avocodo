@@ -1,15 +1,18 @@
 import { HistoryTick } from "../lib/common-types";
 import * as moment from 'moment';
+import { TickBL } from "./tick-bl";
 
 export class WeekMonthHandler {
 
-    public getWeeks(historyTicks: HistoryTick[]): void {
+    public getWeeks(historyTicks: HistoryTick[]) : HistoryTick[] {
 
 
         //  historyTicks.forEach(function(currentValue, index, arr), thisValue)
         let seDates = this.generateWeekDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
 
-        this.getWeekHistoryTicks(seDates, historyTicks);
+        let dateTicks = this.getWeekHistoryTicks(seDates, historyTicks);
+
+       return this.generateWeekTicks(dateTicks);
 
     }
 
@@ -48,6 +51,22 @@ export class WeekMonthHandler {
 
         });
         return dateTicks;
+    }
+
+    private generateWeekTicks(arrDateTick: DateTick[]): HistoryTick[] {
+        let weekHisTicks: HistoryTick[] = [];
+        arrDateTick.forEach((dateTick, index, arr) => {
+            let historyTick = new HistoryTick();
+            historyTick.date = new Date(dateTick.date.format('DD-MMM-YYYY'));
+            historyTick.high = TickBL.max(dateTick.weekTicks, 'high');
+            historyTick.low = TickBL.min(dateTick.weekTicks, 'low');
+            historyTick.open = dateTick.weekTicks[0].open;
+            historyTick.close = dateTick.weekTicks[dateTick.weekTicks.length-1].close;
+            weekHisTicks.push(historyTick);
+        });
+
+        return weekHisTicks;
+
     }
 }
 

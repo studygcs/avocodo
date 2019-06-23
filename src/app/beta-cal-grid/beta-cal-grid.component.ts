@@ -60,9 +60,9 @@ export class BetaCalGridComponent implements AfterViewInit {
   getHistory(stock?: string, series?: string) {
     console.log(stock);
     this.nseService.getTickHistory(stock).then(marketData => {
-      this.data = marketData;
+      //this.data = marketData;
       let wmHandler = new WeekMonthHandler();
-      wmHandler.getWeeks(marketData);
+      this.data = wmHandler.getWeeks(marketData);
       console.log(marketData);
     }).catch(reason => {
       console.log(reason);

@@ -24,6 +24,11 @@ export function getPlural(str: any): string {
       public NoOfTrades: number = 0;
       public deliverableQty: number = 0;
       public percentageDlyQtytoTradedQty: number = 0; 
+
+      public high_low: number = 0; 
+      public open_close: number = 0; 
+
+      
       
       public static GetHistoryQuote(tick: any) : HistoryTick {
           const historyTick = new HistoryTick();
