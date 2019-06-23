@@ -31,7 +31,7 @@ export class NeDBService {
             });
 
         } catch (error) {
-
+            console.log(error);
         }
         return db;
     }
