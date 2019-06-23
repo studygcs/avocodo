@@ -41,7 +41,7 @@ export class BetaCalGridComponent implements AfterViewInit {
     });
 
     this.stockObserver.seriesStockChange.subscribe(stock => {
-      this.getHistory(stock.symbol.symbol, stock.series);
+      this.stockChange(stock.symbol);
     });
     // this.stockHistory = new StockHistory();
   }

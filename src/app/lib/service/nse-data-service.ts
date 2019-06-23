@@ -74,6 +74,7 @@ export class NseDataService implements IMarketData {
                     arrHisTick.push(HistoryTick.GetHistoryQuote(_currentValue));
                 });
             }
+            arrHisTick.pop();
             //console.log(arrHisTick);
             return arrHisTick;
 
