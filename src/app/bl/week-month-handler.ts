@@ -7,11 +7,13 @@ export class WeekMonthHandler {
 
 
         //  historyTicks.forEach(function(currentValue, index, arr), thisValue)
-        this.generateWeekDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
+        let seDates = this.generateWeekDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
+
+        this.getWeekHistoryTicks(seDates, historyTicks);
 
     }
 
-    private generateWeekDates(firstDate: Date, lastDate: Date) : StartEndDate[] {
+    private generateWeekDates(firstDate: Date, lastDate: Date): StartEndDate[] {
         let arrStartEndDate: StartEndDate[] = [];
         try {
             let mFirstDate = moment(firstDate, 'DD-MMM-YYYY', 'en');
@@ -30,10 +32,34 @@ export class WeekMonthHandler {
         return arrStartEndDate;
     }
 
+    private getWeekHistoryTicks(seDates: StartEndDate[], historyTicks: HistoryTick[]): DateTick[] {
+
+        let dateTicks: DateTick[] = [];
+        let hisTicks = [...historyTicks];
+        seDates.forEach((dateItem, index, arr) => {
+            let dateTick = new DateTick(dateItem.startDate);
+            hisTicks.forEach((his, i, a) => {
+                let tickDate = moment(his.date, 'DD-MMM-YYYY', 'en');
+                if (tickDate.isSameOrAfter(dateItem.startDate, 'day') && tickDate.isSameOrBefore(dateItem.endDate, 'day')) {
+                    dateTick.weekTicks.push(his);
+                }
+            });
+            dateTicks.push(dateTick);
+
+        });
+        return dateTicks;
+    }
 }
 
 export class StartEndDate {
-    constructor(public startDate: any,
-        public endDate: any) { }
+    constructor(public startDate: moment.Moment,
+        public endDate: moment.Moment) { }
+
+}
+
+export class DateTick {
+    constructor(public date: moment.Moment) { }
+
+    public weekTicks: HistoryTick[] = [];
 
 }
