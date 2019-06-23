@@ -8,6 +8,7 @@ import { StockObserverService } from './../services/stock-observer.service';
 import { StockSymbol } from './../data/stock-symbol';
 import { NseDataService } from './../lib/service';
 import { HistoryTick } from 'app/lib/common-types';
+import { WeekMonthHandler } from 'app/bl/week-month-handler';
 
 @Component({
   selector: 'app-beta-cal-grid',
@@ -32,8 +33,8 @@ export class BetaCalGridComponent implements AfterViewInit {
   marketDataService: MarketDataService;
 
   constructor(private http: HttpClient,
-     private readonly stockObserver: StockObserverService,
-     private readonly nseService: NseDataService) {
+    private readonly stockObserver: StockObserverService,
+    private readonly nseService: NseDataService) {
     this.marketDataService = new MarketDataService(http);
     // this.stockObserver.subscribeStockChanges(this.stockChange);
     this.stockObserver.stockChange.subscribe(stock => {
@@ -58,13 +59,15 @@ export class BetaCalGridComponent implements AfterViewInit {
 
   getHistory(stock?: string, series?: string) {
     console.log(stock);
-    this.nseService.getTickHistory(stock).then( marketData => {
+    this.nseService.getTickHistory(stock).then(marketData => {
       this.data = marketData;
+      let wmHandler = new WeekMonthHandler();
+      wmHandler.getWeeks(marketData);
       console.log(marketData);
     }).catch(reason => {
       console.log(reason);
     });
-    }
+  }
 
   getHighLowAverage(): number {
     //return CandleBL.getHighLowAverage(this.data);
@@ -72,8 +75,8 @@ export class BetaCalGridComponent implements AfterViewInit {
   }
 
   getOpenCloseAverage(): number {
-   // return CandleBL.getOpenCloseAverage(this.data);
-   return 0;
+    // return CandleBL.getOpenCloseAverage(this.data);
+    return 0;
   }
 
 }
@@ -118,7 +121,7 @@ export class MarketDataService {
 
       if (series !== undefined || series != null) {
         requestUrl = `https://www.alphavantage.co/query?function=${series}&symbol=${symbol}&apikey=8B7J3CQ98YMC2X2V`;
-         console.log(requestUrl);
+        console.log(requestUrl);
       }
 
       console.log(requestUrl);
