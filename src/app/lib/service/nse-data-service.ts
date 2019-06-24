@@ -60,8 +60,7 @@ export class NseDataService implements IMarketData {
             //console.log($('div[class=opttbldata]').html());
 
             let csvData = $('div[id=csvContentDiv]').text();
-            console.log(csvData);
-
+            
             csvData = csvData.replace(/:/g, "\n");;
 
             let arr = CsvHelper.CSV2JSON(csvData);

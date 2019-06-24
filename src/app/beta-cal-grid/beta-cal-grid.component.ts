@@ -5,7 +5,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { StockHistory } from './../data/stock-history';
 import { Candle } from './../data/candle';
 import { StockObserverService } from './../services/stock-observer.service';
-import { StockSymbol } from './../data/stock-symbol';
+import { StockSymbol, SeriesSymbol, DateSeries } from './../data/stock-symbol';
 import { NseDataService } from './../lib/service';
 import { HistoryTick } from 'app/lib/common-types';
 import { WeekMonthHandler } from 'app/bl/week-month-handler';
@@ -33,19 +33,19 @@ export class BetaCalGridComponent implements AfterViewInit {
     private readonly nseService: NseDataService) {
 
 
-    this.stockObserver.stockChange.subscribe(stock => {
-      this.stockChange(stock);
-    });
+    // this.stockObserver.stockChange.subscribe(stock => {
+    //   this.stockChange(stock);
+    // });
 
     this.stockObserver.seriesStockChange.subscribe(stock => {
-      this.stockChange(stock.symbol);
+      this.stockChange(stock);
     });
 
   }
 
-  public stockChange(stockSymbol: StockSymbol): void {
+  public stockChange(stockSymbol: SeriesSymbol): void {
     console.log(stockSymbol);
-    this.getHistory(stockSymbol.symbol);
+    this.getHistory(stockSymbol.symbol.symbol, stockSymbol.series);
   }
 
   ngAfterViewInit() {
@@ -53,12 +53,23 @@ export class BetaCalGridComponent implements AfterViewInit {
     // this.getHistory();
   }
 
-  getHistory(stock?: string, series?: string) {
+  getHistory(stock?: string, series?: DateSeries) {
     console.log(stock);
     this.nseService.getTickHistory(stock).then(marketData => {
-      //this.data = marketData;
       let wmHandler = new WeekMonthHandler();
-      this.data = wmHandler.getMonths(marketData);
+      switch(series){
+        case DateSeries.DIALY: 
+        this.data = marketData;
+        break;
+        case DateSeries.WEEKLY: 
+        this.data = wmHandler.getWeeks(marketData);
+        break;
+        case DateSeries.MONTHLY: 
+        this.data = wmHandler.getMonths(marketData);
+        break;
+      }
+      
+      
       console.log(marketData);
     }).catch(reason => {
       console.log(reason);

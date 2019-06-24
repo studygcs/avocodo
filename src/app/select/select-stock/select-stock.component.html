@@ -12,7 +12,7 @@
 
 		</div>
 
-<div id="nd-box">
+		<div id="nd-box">
 			<mat-form-field>
 				<mat-label>Weekly</mat-label>
 				<mat-select [(ngModel)]="weeklySelSybol" name="food" (selectionChange)=selWeeklyChange($event)>
@@ -23,6 +23,20 @@
 			</mat-form-field>
 
 		</div>
+
+	
+
+	<div id="rd-box">
+		<mat-form-field>
+			<mat-label>Monthly</mat-label>
+			<mat-select [(ngModel)]="monthlySelSybol" name="food" (selectionChange)=selMonthlyChange($event)>
+				<mat-option *ngFor="let food of foods" [value]="food">
+					{{food.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+	</div>
 
 	</div>
 
