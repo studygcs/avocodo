@@ -29,7 +29,7 @@ export function getPlural(str: any): string {
         return this.high - this.low;
       };
       public get open_close(): number {
-        return Math.abs(this.open - this.close);
+        return this.open - this.close;
       };
     
 

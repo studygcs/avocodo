@@ -6,14 +6,38 @@ export class WeekMonthHandler {
 
     public getWeeks(historyTicks: HistoryTick[]) : HistoryTick[] {
 
-
-        //  historyTicks.forEach(function(currentValue, index, arr), thisValue)
         let seDates = this.generateWeekDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
+        let dateTicks = this.getStartEndDateHistoryTicks(seDates, historyTicks);
 
-        let dateTicks = this.getWeekHistoryTicks(seDates, historyTicks);
+       return this.generateDateTicks(dateTicks);
+    }
 
-       return this.generateWeekTicks(dateTicks);
+    public getMonths(historyTicks: HistoryTick[]) : HistoryTick[] {
+        
+        let seDates = this.generateMonthDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
+        let dateTicks = this.getStartEndDateHistoryTicks(seDates, historyTicks);
 
+       return this.generateDateTicks(dateTicks);
+
+    }
+
+    private generateMonthDates(firstDate: Date, lastDate: Date): StartEndDate[] {
+        let arrStartEndDate: StartEndDate[] = [];
+        try {
+            let mFirstDate = moment(firstDate, 'DD-MMM-YYYY', 'en');
+            let mLastDate = moment(lastDate, 'DD-MMM-YYYY', 'en');
+            let startOfMonth = mFirstDate.clone().startOf('month');
+            let endOfMonth = mFirstDate.clone().endOf('month');
+
+            while (startOfMonth < mLastDate) {
+                arrStartEndDate.push(new StartEndDate(startOfMonth, endOfMonth));
+                startOfMonth = startOfMonth.clone().add(1, 'month');
+                endOfMonth = startOfMonth.clone().endOf('month');
+            }
+        } catch (error) {
+
+        }
+        return arrStartEndDate;
     }
 
     private generateWeekDates(firstDate: Date, lastDate: Date): StartEndDate[] {
@@ -35,7 +59,7 @@ export class WeekMonthHandler {
         return arrStartEndDate;
     }
 
-    private getWeekHistoryTicks(seDates: StartEndDate[], historyTicks: HistoryTick[]): DateTick[] {
+    private getStartEndDateHistoryTicks(seDates: StartEndDate[], historyTicks: HistoryTick[]): DateTick[] {
 
         let dateTicks: DateTick[] = [];
         let hisTicks = [...historyTicks];
@@ -53,7 +77,7 @@ export class WeekMonthHandler {
         return dateTicks;
     }
 
-    private generateWeekTicks(arrDateTick: DateTick[]): HistoryTick[] {
+    private generateDateTicks(arrDateTick: DateTick[]): HistoryTick[] {
         let weekHisTicks: HistoryTick[] = [];
         arrDateTick.forEach((dateTick, index, arr) => {
             let historyTick = new HistoryTick();

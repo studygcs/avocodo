@@ -58,7 +58,7 @@ export class BetaCalGridComponent implements AfterViewInit {
     this.nseService.getTickHistory(stock).then(marketData => {
       //this.data = marketData;
       let wmHandler = new WeekMonthHandler();
-      this.data = wmHandler.getWeeks(marketData);
+      this.data = wmHandler.getMonths(marketData);
       console.log(marketData);
     }).catch(reason => {
       console.log(reason);
@@ -99,7 +99,7 @@ export class CandleBL {
     if (candles === undefined || candles.length < 1) {
       return 0;
     }
-    let average = candles.map(candle => candle[prop])
+    let average = candles.map(candle => Math.abs(candle[prop]))
       .reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue) / candles.length;
     return Number(average.toFixed(2));
   }

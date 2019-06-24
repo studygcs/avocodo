@@ -21,6 +21,8 @@ export class SelectStockComponent {
     { symbol: 'JSWSTEEL', name: 'JSWSTEEL' },
     { symbol: 'RELIANCE', name: 'RELIANCE' },
     { symbol: 'YESBANK', name: 'YESBANK' },
+    { symbol: 'TATAMOTORS', name: 'TATAMOTORS' },
+    { symbol: 'HDFCBANK', name: 'HDFCBANK' },
 
     { symbol: '^NSEI', name: 'Nifty 50' },
     { symbol: '^NSEBANK', name: 'BANK NIFTY' }
