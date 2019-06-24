@@ -17,11 +17,9 @@ import { WeekMonthHandler } from 'app/bl/week-month-handler';
 })
 export class BetaCalGridComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['date', 'open', 'high', 'low', 'close'];
-  exampleDatabase: ExampleHttpDatabase | null;
-  data: HistoryTick[] = [];
+  displayedColumns: string[] = ['date', 'open', 'high', 'low', 'close', "high_low", "open_close"];
 
-  stockHistory: StockHistory = new StockHistory();
+  data: HistoryTick[] = [];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -30,13 +28,11 @@ export class BetaCalGridComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  marketDataService: MarketDataService;
-
   constructor(private http: HttpClient,
     private readonly stockObserver: StockObserverService,
     private readonly nseService: NseDataService) {
-    this.marketDataService = new MarketDataService(http);
-    // this.stockObserver.subscribeStockChanges(this.stockChange);
+
+
     this.stockObserver.stockChange.subscribe(stock => {
       this.stockChange(stock);
     });
@@ -44,7 +40,7 @@ export class BetaCalGridComponent implements AfterViewInit {
     this.stockObserver.seriesStockChange.subscribe(stock => {
       this.stockChange(stock.symbol);
     });
-    // this.stockHistory = new StockHistory();
+
   }
 
   public stockChange(stockSymbol: StockSymbol): void {
@@ -70,93 +66,42 @@ export class BetaCalGridComponent implements AfterViewInit {
   }
 
   getHighLowAverage(): number {
-    //return CandleBL.getHighLowAverage(this.data);
-    return 0;
+    return CandleBL.getHighLowAverage(this.data);
   }
 
   getOpenCloseAverage(): number {
-    // return CandleBL.getOpenCloseAverage(this.data);
-    return 0;
+    return CandleBL.getOpenCloseAverage(this.data);
   }
 
-}
-
-export interface GithubApi {
-  items: GithubIssue[];
-  total_count: number;
-}
-
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
-
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDatabase {
-  constructor(private http: HttpClient) { }
-
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-      `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-
-    return this.http.get<GithubApi>(requestUrl);
-  }
-}
-
-export class MarketDataService {
-  href = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=^NSEBANK&apikey=8B7J3CQ98YMC2X2V';
-  constructor(private http: HttpClient) { }
-
-
-
-  getCandles(symbol?: string, series?: string): Observable<any> {
-    console.log('xxxxxxxxxxxxxx');
-    console.log(symbol);
-    console.log(series);
-    if (symbol !== undefined || symbol != null) {
-      let requestUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=8B7J3CQ98YMC2X2V`;
-
-      if (series !== undefined || series != null) {
-        requestUrl = `https://www.alphavantage.co/query?function=${series}&symbol=${symbol}&apikey=8B7J3CQ98YMC2X2V`;
-        console.log(requestUrl);
-      }
-
-      console.log(requestUrl);
-
-      return this.http.get<any>(requestUrl);
-
-    }
-    return this.http.get<any>(this.href);
-  }
 }
 
 
 export class CandleBL {
 
-  public static getHighLowAverage(candles: Candle[]): number {
+  public static getHighLowAverage(candles: HistoryTick[]): number {
 
     if (candles === undefined || candles.length < 1) {
       return 0;
     }
-    return candles.map(candle => candle.high_low)
+    let average = candles.map(candle => candle.high_low)
       .reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue) / candles.length;
+
+    return Number(average.toFixed(2));
   }
 
-  public static getOpenCloseAverage(candles: Candle[]): number {
+  public static getOpenCloseAverage(candles: HistoryTick[]): number {
 
     return this.average(candles, 'open_close');
   }
 
-  public static average(candles: Candle[], prop: string): number {
+  public static average(candles: HistoryTick[], prop: string): number {
 
     if (candles === undefined || candles.length < 1) {
       return 0;
     }
-    return candles.map(candle => candle[prop])
+    let average = candles.map(candle => candle[prop])
       .reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue) / candles.length;
+    return Number(average.toFixed(2));
   }
 
 }

@@ -25,8 +25,13 @@ export function getPlural(str: any): string {
       public deliverableQty: number = 0;
       public percentageDlyQtytoTradedQty: number = 0; 
 
-      public high_low: number = 0; 
-      public open_close: number = 0; 
+      public get high_low() :number { 
+        return this.high - this.low;
+      };
+      public get open_close(): number {
+        return Math.abs(this.open - this.close);
+      };
+    
 
       
       
