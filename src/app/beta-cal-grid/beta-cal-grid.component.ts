@@ -1,14 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { Observable, of as observableOf } from 'rxjs';
-import { StockHistory } from './../data/stock-history';
-import { Candle } from './../data/candle';
 import { StockObserverService } from './../services/stock-observer.service';
-import { StockSymbol, SeriesSymbol, DateSeries } from './../data/stock-symbol';
+import { SeriesSymbol, DateSeries } from './../data/stock-symbol';
 import { NseDataService } from './../lib/service';
-import { HistoryTick } from 'app/lib/common-types';
-import { WeekMonthHandler } from 'app/bl/week-month-handler';
+import { HistoryTick } from './../lib/common-types';
+import { WeekMonthHandler } from './../bl/week-month-handler';
 
 @Component({
   selector: 'app-beta-cal-grid',
