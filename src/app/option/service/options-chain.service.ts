@@ -57,11 +57,8 @@ export class OptionsChainService {
 
     getOptionsChain(opChain) {
 
-        let arrOptionChain: OptionCallPut[] = [];
-
-
-            
-        }
+        let arrOptionChain: OptionCallPut[] = [];          
+        
 
     }
 }
