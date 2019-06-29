@@ -235,6 +235,35 @@ export class SelectStockComponent {
 
   ];
 
+  trackingFnO: StockSymbol[] = [
+
+    
+    { symbol: 'RELIANCE', name: 'RELIANCE' },
+    { symbol: 'HDFCBANK', name: 'HDFCBANK' },
+    { symbol: 'HINDALCO', name: 'HINDALCO' },
+    { symbol: 'SBIN', name: 'SBIN' },
+    { symbol: 'YESBANK', name: 'YESBANK' },
+    { symbol: 'TATASTEEL', name: 'TATASTEEL' },
+    { symbol: 'ITC', name: 'ITC' },
+    { symbol: 'JSWSTEEL', name: 'JSWSTEEL' },
+    { symbol: 'ASHOKLEY', name: 'ASHOKLEY' },
+    { symbol: 'TATAMOTORS', name: 'TATAMOTORS' },
+    { symbol: 'UPL', name: 'UPL' },
+    { symbol: 'TCS', name: 'TCS' },
+    { symbol: 'BAJFINANCE', name: 'BAJFINANCE' },
+    { symbol: 'EICHERMOT', name: 'EICHERMOT' },
+    { symbol: 'FEDERALBNK', name: 'FEDERALBNK' },
+    { symbol: 'HDFCBANK', name: 'HDFCBANK' },
+    { symbol: 'BRITANNIA', name: 'BRITANNIA' },
+    { symbol: 'MARICO', name: 'MARICO' },
+    { symbol: 'NESTLEIND', name: 'NESTLEIND' },
+    { symbol: 'TATAGLOBAL', name: 'TATAGLOBAL' },
+    { symbol: 'BAJAJFINSV', name: 'BAJAJFINSV' },
+    { symbol: 'EXIDEIND', name: 'EXIDEIND' },
+    { symbol: 'COALINDIA', name: 'COALINDIA' },
+    { symbol: 'GLENMARK', name: 'GLENMARK' }
+  ];
+
 
   selChange(event): void {
 
@@ -248,6 +277,11 @@ export class SelectStockComponent {
 
   changeList(event) {
     this.foods = this.fandOSymbols;
+  }
+
+  
+  changeTo(event) {
+    this.foods = this.trackingFnO;
   }
 
   selWeeklyChange(event): void {
