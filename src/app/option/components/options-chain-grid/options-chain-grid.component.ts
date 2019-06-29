@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OptionsChainService } from './../../service/options-chain.service';
 
 @Component({
   selector: 'csapp-options-chain-grid',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OptionsChainGridComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly optionsChainService: OptionsChainService) { }
 
   columnDefs = [
     { headerName: 'Make', field: 'make' },
@@ -22,6 +23,7 @@ export class OptionsChainGridComponent implements OnInit {
   ];
 
   ngOnInit() {
+    let optionchain = this.optionsChainService.getOptionChain();
   }
 
 }
