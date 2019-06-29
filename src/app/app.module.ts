@@ -24,7 +24,7 @@ import { RestangularModule } from 'ngx-restangular';
 import { NseDataService } from './lib/service';
 import { DateFnsModule } from 'ngx-date-fns';
 import { NeDBService } from './db/nedb.service';
-import { AgGridModule } from 'ag-grid-angular';
+import { OptionsModule } from './option/options.module';
 
 // Function for setting the default restangular configuration
 export function RestangularConfigFactory(RestangularProvider) {
@@ -37,6 +37,7 @@ export function RestangularConfigFactory(RestangularProvider) {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    OptionsModule,
     HttpClientModule,
     FormsModule,
     BrowserModule,
@@ -48,8 +49,7 @@ export function RestangularConfigFactory(RestangularProvider) {
     ReactiveFormsModule,
     JsonpModule,
     RestangularModule.forRoot(RestangularConfigFactory),
-    DateFnsModule.forRoot(),
-    AgGridModule.withComponents([])
+    DateFnsModule.forRoot()
 
   ],
   declarations: [AppComponent, BetaCalGridComponent, SelectStockComponent, DashboardComponent],
