@@ -21,7 +21,7 @@ export class OptionsChainGridComponent implements OnInit {
     { headerName: 'Bid Price', field: 'callBidPrice' },
     { headerName: 'Ask Price', field: 'callAskPrice' },
     { headerName: 'Ask Qty', field: 'callAskQty' },
-    { headerName: 'Strike \n Price', field: 'strikePrice' },
+    { headerName: 'Strike Price', field: 'strikePrice' },
     { headerName: 'Bid Qty', field: 'putBidQty' },
     { headerName: 'Bid Price', field: 'putBidPrice' },
     { headerName: 'Ask Price', field: 'putAskPrice' },
