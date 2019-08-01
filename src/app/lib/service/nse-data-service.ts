@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 import { CsvHelper, HistoryTick } from "../common-types";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
-import * as moment from 'moment';
+import moment from 'moment';
 
 
 @Injectable()
