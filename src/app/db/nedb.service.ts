@@ -1,14 +1,14 @@
-import * as Datastore from 'nedb'
+import NeDBDatastore from 'nedb'
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class NeDBService {
 
-    getDatabase(dbName: string): Datastore {
+    getDatabase(dbName: string): NeDBDatastore {
         let db = undefined;
         try {
 
-            db = new Datastore({ filename: `${dbName}.db`, autoload: true });
+            db = new NeDBDatastore({ filename: `${dbName}.db`, autoload: true });
 
             var doc = {
                 _id: 'abc1',

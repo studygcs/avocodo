@@ -1,5 +1,5 @@
 import { HistoryTick } from "../lib/common-types";
-import * as moment from 'moment';
+import moment from 'moment';
 import { TickBL } from "./tick-bl";
 
 export class WeekMonthHandler {
