@@ -4,20 +4,20 @@ import { TickBL } from "./tick-bl";
 
 export class WeekMonthHandler {
 
-    public getWeeks(historyTicks: HistoryTick[]) : HistoryTick[] {
+    public getWeeks(historyTicks: HistoryTick[]): HistoryTick[] {
 
         let seDates = this.generateWeekDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
         let dateTicks = this.getStartEndDateHistoryTicks(seDates, historyTicks);
 
-       return this.generateDateTicks(dateTicks);
+        return this.generateDateTicks(dateTicks);
     }
 
-    public getMonths(historyTicks: HistoryTick[]) : HistoryTick[] {
-        
+    public getMonths(historyTicks: HistoryTick[]): HistoryTick[] {
+
         let seDates = this.generateMonthDates(historyTicks[0].date, historyTicks[historyTicks.length - 1].date);
         let dateTicks = this.getStartEndDateHistoryTicks(seDates, historyTicks);
 
-       return this.generateDateTicks(dateTicks);
+        return this.generateDateTicks(dateTicks);
 
     }
 
@@ -35,7 +35,7 @@ export class WeekMonthHandler {
                 endOfMonth = startOfMonth.clone().endOf('month');
             }
         } catch (error) {
-
+            console.log(error);
         }
         return arrStartEndDate;
     }
@@ -85,7 +85,7 @@ export class WeekMonthHandler {
             historyTick.high = TickBL.max(dateTick.weekTicks, 'high');
             historyTick.low = TickBL.min(dateTick.weekTicks, 'low');
             historyTick.open = dateTick.weekTicks[0].open;
-            historyTick.close = dateTick.weekTicks[dateTick.weekTicks.length-1].close;
+            historyTick.close = dateTick.weekTicks[dateTick.weekTicks.length - 1].close;
             weekHisTicks.push(historyTick);
         });
 
