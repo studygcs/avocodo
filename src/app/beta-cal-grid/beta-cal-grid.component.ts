@@ -6,6 +6,7 @@ import { SeriesSymbol, DateSeries } from './../data/stock-symbol';
 import { NseDataService } from './../lib/service';
 import { HistoryTick } from './../lib/common-types';
 import { WeekMonthHandler } from './../bl/week-month-handler';
+import { NseIndexDataService } from 'app/lib/service/nse-Index-data.service';
 
 @Component({
   selector: 'app-beta-cal-grid',
@@ -27,7 +28,8 @@ export class BetaCalGridComponent implements AfterViewInit {
 
   constructor(private http: HttpClient,
     private readonly stockObserver: StockObserverService,
-    private readonly nseService: NseDataService) {
+    private readonly nseService: NseDataService,
+    private readonly nseIndexSer: NseIndexDataService) {
 
 
     // this.stockObserver.stockChange.subscribe(stock => {
@@ -35,7 +37,39 @@ export class BetaCalGridComponent implements AfterViewInit {
     // });
 
     this.stockObserver.seriesStockChange.subscribe(stock => {
-      this.stockChange(stock);
+      if (!stock.isIndex) {
+        this.stockChange(stock);
+      } else {
+        console.log("index call: " + stock);
+        this.nseIndexSer.getHistory(stock.symbol.symbol).subscribe(
+          nseData => {
+            console.log(nseData);
+          }
+        );
+
+        // console.log(stock);
+        // this.nseService.getTickHistory(stock.symbol.symbol).then(marketData => {
+        //   let wmHandler = new WeekMonthHandler();
+        //   switch (stock.series) {
+        //     case DateSeries.DIALY:
+        //       this.data = marketData;
+        //       break;
+        //     case DateSeries.WEEKLY:
+        //       this.data = wmHandler.getWeeks(marketData);
+        //       break;
+        //     case DateSeries.MONTHLY:
+        //       this.data = wmHandler.getMonths(marketData);
+        //       break;
+        //   }
+
+
+        //   console.log(marketData);
+        // }).catch(reason => {
+        //   console.log(reason);
+        // });
+
+
+      }
     });
 
   }
@@ -54,19 +88,19 @@ export class BetaCalGridComponent implements AfterViewInit {
     console.log(stock);
     this.nseService.getTickHistory(stock).then(marketData => {
       let wmHandler = new WeekMonthHandler();
-      switch(series){
-        case DateSeries.DIALY: 
-        this.data = marketData;
-        break;
-        case DateSeries.WEEKLY: 
-        this.data = wmHandler.getWeeks(marketData);
-        break;
-        case DateSeries.MONTHLY: 
-        this.data = wmHandler.getMonths(marketData);
-        break;
+      switch (series) {
+        case DateSeries.DIALY:
+          this.data = marketData;
+          break;
+        case DateSeries.WEEKLY:
+          this.data = wmHandler.getWeeks(marketData);
+          break;
+        case DateSeries.MONTHLY:
+          this.data = wmHandler.getMonths(marketData);
+          break;
       }
-      
-      
+
+
       console.log(marketData);
     }).catch(reason => {
       console.log(reason);

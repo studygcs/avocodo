@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockSymbol, SeriesSymbol, Series, DateSeries } from './../../data/stock-symbol';
 import { StockObserverService } from './../../services/stock-observer.service';
+import { IndexSymbol } from './index-symbol';
 
 @Component({
   selector: 'app-select-stock',
@@ -12,6 +13,8 @@ export class SelectStockComponent {
   constructor(private readonly stockObserver: StockObserverService) {
 
   }
+
+  isIndexSelected = false;
 
   selectedValue: StockSymbol;
 
@@ -237,7 +240,7 @@ export class SelectStockComponent {
 
   trackingFnO: StockSymbol[] = [
 
-    
+
     { symbol: 'RELIANCE', name: 'RELIANCE' },
     { symbol: 'HDFCBANK', name: 'HDFCBANK' },
     { symbol: 'HINDALCO', name: 'HINDALCO' },
@@ -267,7 +270,11 @@ export class SelectStockComponent {
 
   selChange(event): void {
 
-    const seriesSymbol: SeriesSymbol = { symbol: event.value, series: DateSeries.DIALY }
+    const seriesSymbol: SeriesSymbol = <SeriesSymbol>{
+      symbol: event.value,
+      series: DateSeries.DIALY,
+      isIndex: this.isIndexSelected
+    };
 
     this.stockObserver.updateSeriesStock(seriesSymbol);
     console.log(seriesSymbol);
@@ -275,18 +282,28 @@ export class SelectStockComponent {
 
   }
 
-  changeList(event) {
+  changeList(event): void {
     this.foods = this.fandOSymbols;
+    this.isIndexSelected = false;
   }
 
-  
-  changeTo(event) {
-    this.foods = this.trackingFnO;
+  changeToIndex(event): void {
+    this.foods = IndexSymbol.indexStockSymbols;
+    this.isIndexSelected = true;
+  }
+
+  changeTo(event): void {
+    this.foods = this.fandOSymbols;
+    this.isIndexSelected = false;
   }
 
   selWeeklyChange(event): void {
 
-    const seriesSymbol: SeriesSymbol = { symbol: event.value, series: DateSeries.WEEKLY }
+    const seriesSymbol: SeriesSymbol = <SeriesSymbol>{
+      symbol: event.value,
+      series: DateSeries.WEEKLY,
+      isIndex: this.isIndexSelected
+    };
 
     this.stockObserver.updateSeriesStock(seriesSymbol);
     console.log(seriesSymbol);
@@ -294,7 +311,11 @@ export class SelectStockComponent {
 
   selMonthlyChange(event): void {
 
-    const seriesSymbol: SeriesSymbol = { symbol: event.value, series: DateSeries.MONTHLY }
+    const seriesSymbol: SeriesSymbol = <SeriesSymbol>{
+      symbol: event.value,
+      series: DateSeries.MONTHLY,
+      isIndex: this.isIndexSelected
+    };
 
     this.stockObserver.updateSeriesStock(seriesSymbol);
     console.log(seriesSymbol);

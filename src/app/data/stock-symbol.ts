@@ -19,4 +19,5 @@ export enum DateSeries {
 export interface SeriesSymbol {
   symbol: StockSymbol;
   series: DateSeries;
+  isIndex: boolean;
 }
