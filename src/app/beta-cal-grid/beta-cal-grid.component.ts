@@ -41,33 +41,25 @@ export class BetaCalGridComponent implements AfterViewInit {
         this.stockChange(stock);
       } else {
         console.log("index call: " + stock);
-        this.nseIndexSer.getHistory(stock.symbol.symbol).subscribe(
-          nseData => {
-            console.log(nseData);
+        this.nseIndexSer.getIndexTickHistory(stock.symbol.symbol).then(marketData => {
+          let wmHandler = new WeekMonthHandler();
+          switch (stock.series) {
+            case DateSeries.DIALY:
+              this.data = marketData;
+              break;
+            case DateSeries.WEEKLY:
+              this.data = wmHandler.getWeeks(marketData);
+              break;
+            case DateSeries.MONTHLY:
+              this.data = wmHandler.getMonths(marketData);
+              break;
           }
-        );
-
-        // console.log(stock);
-        // this.nseService.getTickHistory(stock.symbol.symbol).then(marketData => {
-        //   let wmHandler = new WeekMonthHandler();
-        //   switch (stock.series) {
-        //     case DateSeries.DIALY:
-        //       this.data = marketData;
-        //       break;
-        //     case DateSeries.WEEKLY:
-        //       this.data = wmHandler.getWeeks(marketData);
-        //       break;
-        //     case DateSeries.MONTHLY:
-        //       this.data = wmHandler.getMonths(marketData);
-        //       break;
-        //   }
 
 
-        //   console.log(marketData);
-        // }).catch(reason => {
-        //   console.log(reason);
-        // });
-
+          console.log(marketData);
+        }).catch(reason => {
+          console.log(reason);
+        });
 
       }
     });

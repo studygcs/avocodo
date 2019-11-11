@@ -55,6 +55,27 @@ export class HistoryTick {
 
     return historyTick;
   }
+
+  public static GetIndexHistoryQuote(tick: any): HistoryTick {
+    const historyTick = new HistoryTick();
+    historyTick.symbol = tick['Symbol'];
+    // historyTick. = tick['Series'];
+    historyTick.date = tick['Date'];
+    historyTick.prevClose = parseInt(tick['Prev Close']);
+    historyTick.open = parseInt(tick['Open']);
+    historyTick.high = parseInt(tick['High']);
+    historyTick.low = parseInt(tick['Low']);
+    historyTick.last = parseInt(tick['Last Price']);
+    historyTick.close = parseInt(tick['Close']);
+    historyTick.averagePrice = parseInt(tick['Average Price']);
+    historyTick.totalTradedQuantity = parseInt(tick['Total Traded Quantity']);
+    historyTick.Turnover = parseInt(tick['Turnover (Rs. Cr)']);
+    historyTick.NoOfTrades = parseInt(tick['Shares Traded']);
+    historyTick.deliverableQty = parseInt(tick['Deliverable Qty']);
+    historyTick.percentageDlyQtytoTradedQty = parseInt(tick['% Dly Qt to Traded Qty']);
+
+    return historyTick;
+  }
 }
 
 export class Quote {

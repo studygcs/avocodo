@@ -48,7 +48,8 @@ export class NseIndexDataService {
 
             if (arrHistory.length > 0) {
                 arrHistory.forEach((_currentValue: any, _index: number, _arr: any) => {
-                    arrHisTick.push(HistoryTick.GetHistoryQuote(_currentValue));
+                    _currentValue.Symbol = symbol
+                    arrHisTick.push(HistoryTick.GetIndexHistoryQuote(_currentValue));
                 });
             }
             arrHisTick.pop();
