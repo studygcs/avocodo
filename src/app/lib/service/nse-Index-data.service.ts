@@ -22,7 +22,7 @@ export class NseIndexDataService {
 
         const now = moment();
         const today = now.format('DD-MM-YYYY');
-        const lastYear = now.subtract(10, 'days').format('DD-MM-YYYY');
+        const lastYear = now.subtract(360, 'days').format('DD-MM-YYYY');
         const url = `https://www.nseindia.com/products/dynaContent/equities/indices/historicalindices.jsp?indexType=${symbol}&fromDate=${lastYear}&toDate=${today}`;
 
         return url;
