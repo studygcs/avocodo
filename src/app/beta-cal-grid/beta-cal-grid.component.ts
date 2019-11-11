@@ -6,7 +6,7 @@ import { SeriesSymbol, DateSeries } from './../data/stock-symbol';
 import { NseDataService } from './../lib/service';
 import { HistoryTick } from './../lib/common-types';
 import { WeekMonthHandler } from './../bl/week-month-handler';
-import { NseIndexDataService } from 'app/lib/service/nse-Index-data.service';
+import { NseIndexDataService } from './../lib/service/nse-Index-data.service';
 
 @Component({
   selector: 'app-beta-cal-grid',
