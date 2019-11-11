@@ -25,6 +25,7 @@ import { NseDataService } from './lib/service';
 import { DateFnsModule } from 'ngx-date-fns';
 import { NeDBService } from './db/nedb.service';
 import { OptionsModule } from './option/options.module';
+import { NseIndexDataService } from './lib/service/nse-Index-data.service';
 
 // Function for setting the default restangular configuration
 export function RestangularConfigFactory(RestangularProvider) {
@@ -58,7 +59,8 @@ export function RestangularConfigFactory(RestangularProvider) {
     StockObserverService,
     NseService,
     NseDataService,
-    NeDBService
+    NeDBService,
+    NseIndexDataService
   ]
 })
 export class AppModule { }
