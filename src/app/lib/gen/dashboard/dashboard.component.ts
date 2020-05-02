@@ -44,6 +44,11 @@ export class DashboardComponent implements OnInit {
     this.openWindow('https://www.nseindia.com/products/content/equities/indices/historical_index_data.htm');
   }
 
+  historyFandOUrl: string = 'https://www1.nseindia.com/products/content/derivatives/equities/historical_fo.htm';
+
+  public nseHistoryFandOUrl(): void {
+    this.openWindow('https://www.nseindia.com/products/content/equities/indices/historical_index_data.htm');
+  }
   openWindow(url: string): void {
     window.open(url, "_blank");
   }
